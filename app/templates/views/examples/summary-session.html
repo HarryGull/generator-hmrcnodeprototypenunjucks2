@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+  Prototype - Check your answers
+{% endblock %}
+
+{% block content %}
+
+<main id="content" role="main">
+  <!-- Banner -->
+  <div class="phase-banner">
+     {% include "includes/phase_banner_alpha.html" %}
+  </div>
+  <div class="logo"></div>
+  <span class="organisation-logo organisation-logo-medium">HM Revenue &amp; Customs</span><!-- /Banner -->
+  <!-- About service form -->
+  <form action="/examples/summary-session" method="post" class="form">
+    <!-- Back button -->
+    <div class = "form-group-compound">   
+      <a id="back" class="link-back" href="javascript:history.back()">Back</a>
+    </div><!-- /Back button -->
+    <!-- Title -->
+    <h2 class="form-title heading-large">Check your answers</h2>
+    <div class="form-group">
+      <table>
+        <tbody>
+          <tr>
+              <th>Question</th>
+              <th>Answer</th>
+              <th/>
+          </tr>
+          <tr>
+              <td>Service name</td>
+              <td>{{ service }}</td>
+              <td><a href="/examples/about-service-session">change</a></td>
+          </tr>
+
+          <tr>
+              <td>Service Reference Number</td>
+              <td>{{ SRN }}</td>
+              <td><a href="/examples/about-service-session">change</a></td>
+          </tr>
+
+          <tr>
+              <td>Who does this service relate to</td>
+              <td>{{ indOrComp }}</td>
+              <td><a href="/examples/about-service-session">change</a></td>
+          </tr>
+
+          <tr>
+              <td  style="vertical-align:top">Name and Address</td>
+              <td  style="vertical-align:top">{{ fullname }}<br/>
+                  {{ address1 }}<br/>
+                  {{ address2 }}<br/>
+                  {{ address3 }}<br/>
+                  {{ address4 }}<br/>
+                  {{ postcode }}
+              </td>
+              <!-- Change the change link depending on whether an company or individual -->
+              <td  style="vertical-align:top">                  
+              <!-- Change the change link depending on whether an company or individual -->
+                {% if isIndividual %}
+                   <a href="/examples/about-person-session">change</a> 
+                {% else %}
+                      <a href="/examples/about-company-session">change</a>
+                {% endif %}
+          </tr>
+
+          <tr><a href="/examples/about-company-two-session">change</a>
+              <td>Phone number</td>
+              <td>{{ phone }}</td>
+             <td>
+                <!-- Change the change link depending on whether an company or individual -->
+                {% if isIndividual %}
+                   <a href="/examples/about-person-two-session">change</a> 
+                {% else %}
+                      <a href="/examples/about-company-two-session">change</a>
+                {% endif %}
+              </td>
+          </tr>
+
+          <tr>
+          <!-- Change the date label depending on whether an company or individual  -->
+              <td>{{ "Date company started trading" if isCompany else "Date of birth" }}</td>
+              <td>{{ dateDday }}{{ dateMonth }}{{ dateYear }}</td>
+              <td>
+                <!-- Change the change link depending on whether an company or individual -->
+                {% if isIndividual %}
+                   <a href="/examples/about-person-two-session">change</a> 
+                {% else %}
+                      <a href="/examples/about-company-two-session">change</a>
+                {% endif %}
+              </td>
+          </tr>
+          
+           <!-- Only render the NINO row if it's an individual -->
+          {% if isIndividual %}
+            <tr>
+                <td>National Insurance number</td>
+                <td>{{ nino }}</td>
+                <td><a href="/examples/about-person-two-session">change</a></td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+     
+      <!-- Example of pre-populating a check box (similar approach can be used for radio button too)-->
+      <!-- pre check the check box if an individual --> 
+      <label class="form-checkbox" for="forwardFreeCheckingService">
+        <input id="forwardFreeCheckingService" type="checkbox"
+               name="forwardFreeCheckingService" value="{{ isIndividual }}" {% if isIndividual %} checked="checked" {% endif %}>
+        pre-populated checked if an individual
+      </label>
+    </div>
+    <!-- Next button -->
+    <div class="form-group">
+        <button class ="btn button" type "next">Submit</button>
+    </div>
+  </form>
+</main>
+
+{% endblock %}
