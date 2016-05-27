@@ -67,7 +67,7 @@ NodeExpressGenerator.prototype.copyRootFiles = function copyRootFiles() {
   this.copy('_package.json', 'package.json');
   this.copy('server.js', 'server.js');
   this.copy('start.js', 'start.js');  
-  this.copy('LICENSE.txt', 'LICENSE.txt');
+  this.copy('LICENCE.txt', 'LICENCE.txt');
   this.copy('travis.yml', '.travis.yml');
   this.copy('VERSION.txt', 'VERSION.txt');
 };
