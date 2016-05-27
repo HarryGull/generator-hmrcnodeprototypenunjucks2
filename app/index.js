@@ -143,7 +143,7 @@ NodeExpressGenerator.prototype.lib = function lib() {
   this.copy('lib/govuk_template.html', 'lib/govuk_template.html');
   this.copy('lib/govuk_template_unbranded.html', 'lib/govuk_template_unbranded.html');
   this.copy('lib/utils.js', 'lib/utils.js');
-  this.copy('lib/core_filters.js', 'lib/core_filters.js');
+  //this.copy('lib/core_filters.js', 'lib/core_filters.js');
 };
 
 
