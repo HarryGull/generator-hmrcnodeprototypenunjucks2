@@ -152,7 +152,7 @@ NodeExpressGenerator.prototype.assets = function assets() {
 
   // scaffold all target directories
   this.mkdir('app');
-  this.mkdir('app/assets');ib
+  this.mkdir('app/assets');
   this.mkdir('app/assets/images');
   this.mkdir('app/assets/javascripts');
   this.mkdir('app/assets/javascripts/govuk');
