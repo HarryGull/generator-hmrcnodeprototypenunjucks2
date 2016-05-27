@@ -33,14 +33,14 @@ function ShowHideContent() {
             var $groupDataTarget = $('#' + groupDataTarget);
 
             // Hide toggled content
-            $groupDataTarget.addClass('js-hidden');
+            $groupDataTarget.hide();
             // Set aria-expanded and aria-hidden for hidden content
             $this.attr('aria-expanded', 'false');
             $groupDataTarget.attr('aria-hidden', 'true');
           });
 
           var $dataTarget = $('#' + dataTarget);
-          $dataTarget.removeClass('js-hidden');
+          $dataTarget.show();
           // Set aria-expanded and aria-hidden for clicked radio
           $radio.attr('aria-expanded', 'true');
           $dataTarget.attr('aria-hidden', 'false');
@@ -60,7 +60,7 @@ function ShowHideContent() {
             var $groupDataTarget = $('#' + groupDataTarget);
 
             // Hide toggled content
-            $groupDataTarget.addClass('js-hidden');
+            $groupDataTarget.hide();
             // Set aria-expanded and aria-hidden for hidden content
             $(this).attr('aria-expanded', 'false');
             $groupDataTarget.attr('aria-hidden', 'true');
@@ -98,7 +98,7 @@ function ShowHideContent() {
           var state = $(this).attr('aria-expanded') === 'false' ? true : false;
 
           // Toggle hidden content
-          $('#'+$dataTarget).toggleClass('js-hidden');
+          $('#'+$dataTarget).toggle();
 
           // Update aria-expanded and aria-hidden attributes
           $(this).attr('aria-expanded', state);

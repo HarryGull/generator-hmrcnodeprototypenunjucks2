@@ -67,9 +67,9 @@ NodeExpressGenerator.prototype.copyRootFiles = function copyRootFiles() {
   this.copy('_package.json', 'package.json');
   this.copy('server.js', 'server.js');
   this.copy('start.js', 'start.js');  
-  this.copy('LICENSE.txt', 'LICENSE.txt');  
-  this.copy('port.tmp', '.port.tmp');
+  this.copy('LICENSE.txt', 'LICENSE.txt');
   this.copy('travis.yml', '.travis.yml');
+  this.copy('VERSION.txt', 'VERSION.txt');
 };
 
 NodeExpressGenerator.prototype.routes = function routes() {
@@ -78,7 +78,7 @@ NodeExpressGenerator.prototype.routes = function routes() {
   this.mkdir('app')
   this.copy('routes.js', 'app/routes.js');
   this.copy('config.js', 'app/config.js');
-  this.copy('filters.js', 'app/filters.js');
+  //this.copy('filters.js', 'app/filters.js');
 };
 
 NodeExpressGenerator.prototype.views = function views() {
