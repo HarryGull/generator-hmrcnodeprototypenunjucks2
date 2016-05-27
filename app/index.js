@@ -130,7 +130,7 @@ NodeExpressGenerator.prototype.views = function views() {
   this.copy('views/includes/propositional_navigation.html', 'app/views/includes/propositional_navigation.html');
   this.copy('views/includes/propositional_navigation_alpha.html', 'app/views/includes/propositional_navigation_alpha.html');
   this.copy('views/includes/scripts.html', 'app/views/includes/scripts.html');
-  this.copy('views/includes/address_pattern.html', 'app/views/includes/address_pattern.html');
+  //this.copy('views/includes/address_pattern.html', 'app/views/includes/address_pattern.html');
 };
 
 NodeExpressGenerator.prototype.lib = function lib() {

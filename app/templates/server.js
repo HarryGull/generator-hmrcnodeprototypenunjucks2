@@ -1,5 +1,6 @@
 var path = require('path'),
     express = require('express'),
+    browserSync = require('browser-sync'),
     nunjucks = require('express-nunjucks'),
     routes = require(__dirname + '/app/routes.js'),
     favicon = require('serve-favicon'),
@@ -10,6 +11,7 @@ var path = require('path'),
     port = (process.env.PORT || config.port),
     utils = require(__dirname + '/lib/utils.js'),
     packageJson = require(__dirname + '/package.json'),
+    session = require('express-session'),
 
 // Grab environment variables specified in Procfile or as Heroku config vars
     releaseVersion = packageJson.version,
@@ -63,6 +65,13 @@ app.use(favicon(path.join(__dirname, 'govuk_modules', 'govuk_template', 'assets'
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
+}));
+
+// Support session data
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: Math.round(Math.random()*100000).toString()
 }));
 
 // send assetPath to all views
@@ -141,4 +150,24 @@ console.log("\nGOV.UK Prototype kit v" + releaseVersion);
 console.log("\nNOTICE: the kit is for building prototypes, do not use it for production services.");
 
 // start the app
-utils.findAvailablePort(app);
+utils.findAvailablePort(app, function(port) {
+  console.log('Listening on port ' + port + '   url: http://localhost:' + port);
+  if (env === 'production') {
+    app.listen(port);
+  } else {
+    app.listen(port-50,function()
+    {
+      browserSync({
+        proxy:'localhost:'+(port-50),
+        port:port,
+        ui:false,
+        files:['public/**/*.*','app/views/**/*.*'],
+        ghostmode:false,
+        open:false,
+        notify:false,
+        logLevel: "error"
+      });
+    });
+  }
+});
+
