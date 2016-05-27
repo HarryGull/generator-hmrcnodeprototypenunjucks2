@@ -10,7 +10,6 @@ var path = require('path'),
     port = (process.env.PORT || config.port),
     utils = require(__dirname + '/lib/utils.js'),
     packageJson = require(__dirname + '/package.json'),
-    session = require('express-session'),
 
 // Grab environment variables specified in Procfile or as Heroku config vars
     releaseVersion = packageJson.version,
@@ -24,15 +23,7 @@ var path = require('path'),
     useAuth  = useAuth.toLowerCase();
     useHttps   = useHttps.toLowerCase();
 
-// for secret change value to project name such as dds, scrs etc..
-app.use(session({
-  secret: 'projectAbbreviation',
-  resave : false,
-  saveUninitialized : false
-}));
-
-
-// Authenticate against the environment-provided credentials if running
+// Authenticate against the environment-provided credentials, if running
 // the app in production (Heroku, effectively)
 if (env === 'production' && useAuth === 'true'){
     app.use(utils.basicAuth(username, password));
@@ -59,13 +50,11 @@ nunjucks.ready(function(nj) {
   });
 });
 
-
 // Middleware to serve static assets
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/public', express.static(__dirname + '/govuk_modules/govuk_template/assets'));
 app.use('/public', express.static(__dirname + '/govuk_modules/govuk_frontend_toolkit'));
 app.use('/public/images/icons', express.static(__dirname + '/govuk_modules/govuk_frontend_toolkit/images'));
-
 
 // Elements refers to icon folder instead of images folder
 app.use(favicon(path.join(__dirname, 'govuk_modules', 'govuk_template', 'assets', 'images','favicon.ico')));
@@ -76,24 +65,11 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// make captureFeedback flag available to all views
-app.use(function (req, res, next) {
-  // default the captureFeedback global setting if not set
-  if (req.session.captureFeedback === undefined) {
-    req.session.captureFeedback = false;
-  }
-
-  res.locals.captureFeedback = req.session.captureFeedback;
-  next();
-});
-
-
 // send assetPath to all views
 app.use(function (req, res, next) {
   res.locals.asset_path="/public/";
   next();
 });
-
 
 // Add variables that are available in all views
 app.use(function (req, res, next) {
@@ -129,6 +105,15 @@ if (typeof(routes) != "function"){
   app.use("/", routes);
 }
 
+// Strip .html and .htm if provided
+app.get(/\.html?$/i, function (req, res){
+  var path = req.path;
+  var parts = path.split('.');
+  parts.pop();
+  path = parts.join('.');
+  res.redirect(path);
+});
+
 // auto render any view that exists
 app.get(/^\/([^.]+)$/, function (req, res) {
 
@@ -156,10 +141,4 @@ console.log("\nGOV.UK Prototype kit v" + releaseVersion);
 console.log("\nNOTICE: the kit is for building prototypes, do not use it for production services.");
 
 // start the app
-
-app.listen(port);
-console.log('');
-console.log('Listening on port ' + port);
-console.log('You can open the browser or ctrl click this link : http://localhost:'+ port);
-console.log('');
-
+utils.findAvailablePort(app);

@@ -68,6 +68,8 @@ NodeExpressGenerator.prototype.copyRootFiles = function copyRootFiles() {
   this.copy('server.js', 'server.js');
   this.copy('start.js', 'start.js');  
   this.copy('LICENSE.txt', 'LICENSE.txt');  
+  this.copy('port.tmp', '.port.tmp');
+  this.copy('travis.yml', '.travis.yml');
 };
 
 NodeExpressGenerator.prototype.routes = function routes() {
@@ -94,8 +96,8 @@ NodeExpressGenerator.prototype.views = function views() {
   this.copy('views/scenarios.html', 'app/views/scenarios.html');
   this.copy('views/layout.html', 'app/views/layout.html');
   this.copy('views/layout_unbranded.html', 'app/views/layout_unbranded.html');
-  this.copy('views/unbranded.html', 'app/views/unbranded.html');
-  this.copy('views/unbranded_template.html', 'app/views/unbranded_template.html');
+  //this.copy('views/unbranded.html', 'app/views/unbranded.html');
+  //this.copy('views/unbranded_template.html', 'app/views/unbranded_template.html');
 
   console.log("Creating the view/examples folder and copying its content files...");  
   this.copy('views/examples/about-company.html', 'app/views/examples/about-company.html');
@@ -160,8 +162,7 @@ NodeExpressGenerator.prototype.assets = function assets() {
   this.mkdir('app/assets/sass/elements');
   this.mkdir('app/assets/sass/elements/forms');
   this.mkdir('app/assets/sass/patterns');
-  this.mkdir('app/assets/sass/patterns');
-  
+ 
 
   // scaffold these by copying in all the required items from the template folders to the tyarget app folders:
   // assets/images
@@ -174,7 +175,7 @@ NodeExpressGenerator.prototype.assets = function assets() {
   // assets/javascripts
   console.log("copying the assets/javascripts content files...");   
   this.copy('assets/javascripts/application.js', 'app/assets/javascripts/application.js');
-  this.copy('assets/javascripts/jquery.lazy.min.js', 'app/assets/javascripts/jquery.lazy.min.js');
+  //this.copy('assets/javascripts/jquery.lazy.min.js', 'app/assets/javascripts/jquery.lazy.min.js');
   this.copy('assets/javascripts/details.polyfill.js', 'app/assets/javascripts/details.polyfill.js');
   this.copy('assets/javascripts/jquery-1.11.3.js', 'app/assets/javascripts/jquery-1.11.3.js');
   this.copy('assets/javascripts/govuk/selection-buttons.js', 'app/assets/javascripts/govuk/selection-buttons.js');
