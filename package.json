@@ -1,6 +1,6 @@
 {
   "name": "generator-hmrcnodeprototypenunjucks2",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A generator for Yeoman with HMRC template to will kick start a Node Application using Express and Nunjuck engine and templates.",
   "keywords": [
     "yeoman-generator"
